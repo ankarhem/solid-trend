@@ -9,7 +9,7 @@ interface CategoryPageProps {
 function CategoryPage(props: CategoryPageProps) {
   return (
     <div class="mx-4 xl:max-w-7xl xl:mx-auto flex h-full gap-4 my-10">
-      <div class="grid w-96 bg-base-200">
+      <div class="grid w-80 gap-2 p-1">
         <Show when={props.object.products?.filters} keyed>
           {(filters) => <Filters filters={filters} />}
         </Show>

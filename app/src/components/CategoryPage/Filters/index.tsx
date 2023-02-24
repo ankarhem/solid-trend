@@ -40,8 +40,12 @@ const filters = {
 };
 
 function Filters(props: FiltersProps) {
+  const sortedFilters = () =>
+    [...props.filters].sort((a, b) =>
+      a?.name && b?.name && a.name > b.name ? 1 : -1
+    );
   return (
-    <For each={props.filters}>
+    <For each={sortedFilters()}>
       {(filter) => (
         <Dynamic
           component={filters[filter?.__typename!]}
