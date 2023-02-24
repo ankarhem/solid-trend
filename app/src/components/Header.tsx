@@ -24,6 +24,7 @@ export default function Header(props: HeaderProps) {
                     href={category?.primaryRoute?.path}
                     class="hover:underline underline-offset-2"
                     activeClass="font-semibold"
+                    // rel="prefetch"
                   >
                     {category?.name}
                   </A>

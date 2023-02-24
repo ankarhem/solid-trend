@@ -2,6 +2,7 @@
   "name": "@norce/storefront",
   "scripts": {
     "dev": "solid-start dev",
+    "dev:inspect": "NODE_OPTIONS=\"--inspect\" solid-start dev",
     "build": "solid-start build",
     "start": "solid-start start",
     "generate": "pnpm graphql-codegen --config codegen.cjs"

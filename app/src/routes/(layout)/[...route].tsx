@@ -1,5 +1,5 @@
 import { gqlRequest } from '@norce/storefront-lib/graphql';
-import { lazy } from 'solid-js';
+import { Component, lazy, Suspense } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { RouteDataArgs, useRouteData } from 'solid-start';
 import { createServerData$, redirect, ServerError } from 'solid-start/server';
@@ -54,7 +54,7 @@ export const routeData = ({ location }: RouteDataArgs) => {
   );
 };
 
-const Pages = {
+const pages = {
   Category: lazy(() => import('~/components/CategoryPage')),
   Page: lazy(() => import('~/components/Page')),
   Product: lazy(() => import('~/components/ProductPage')),
@@ -65,9 +65,11 @@ export default function DynamicRoute() {
   const query = useRouteData<typeof routeData>();
 
   return (
-    <Dynamic
-      component={Pages[query()?.data?.route?.object?.__typename!]}
-      object={query()?.data?.route?.object as any}
-    />
+    <Suspense fallback={<p>Loading..</p>}>
+      <Dynamic
+        component={pages[query()?.data?.route?.object?.__typename!]}
+        object={query()?.data?.route?.object as any}
+      />
+    </Suspense>
   );
 }
