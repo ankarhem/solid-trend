@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
   return (
-    <header class="bg-base-100 px-4 shadow-md flex py-4">
+    <header class="px-4 shadow-md flex py-4">
       <A href="/">
         <img src="/NorceLogo.svg" alt="logo" class="h-6 block" />
       </A>

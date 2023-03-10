@@ -1,14 +1,20 @@
 import { gqlRequest } from '@norce/storefront-lib/graphql';
-import { Component, lazy, Suspense } from 'solid-js';
+import { Component, ErrorBoundary, For, lazy, Suspense } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { RouteDataArgs, useRouteData } from 'solid-start';
 import { createServerData$, redirect, ServerError } from 'solid-start/server';
 import { Get } from 'type-fest';
-import { notFound, serverError } from '~/components/ServerErrorMessage';
+import Breadcrumbs from '~/components/Breadcrumbs';
+import Head from '~/components/Head';
+import {
+  notFound,
+  serverError,
+  serviceUnavailable,
+} from '~/components/ServerErrorMessage';
 import { RouteDocument, RouteQuery } from '~/graphql-operations';
 
 export type PageType = NonNullable<Get<RouteQuery, 'route.object.__typename'>>;
-export type PageObject<P extends PageType> = Extract<
+export type PageObject<P extends PageType = PageType> = Extract<
   Get<RouteQuery, 'route.object'>,
   { __typename: P }
 >;
@@ -27,7 +33,11 @@ export const routeData = ({ location }: RouteDataArgs) => {
             shopid: 'demostore',
             token: '359fd7c1-8e72-4270-b899-2bda9ae6ef57',
           },
-        }).then((res) => res.json());
+        })
+          .then((res) => res.json())
+          .catch((err) => {
+            throw serviceUnavailable();
+          });
 
         if (!response.data?.route) {
           throw notFound();
@@ -65,11 +75,15 @@ export default function DynamicRoute() {
   const query = useRouteData<typeof routeData>();
 
   return (
-    <Suspense fallback={<p>Loading..</p>}>
-      <Dynamic
-        component={pages[query()?.data?.route?.object?.__typename!]}
-        object={query()?.data?.route?.object as any}
-      />
-    </Suspense>
+    <>
+      <Head route={query()?.data?.route} />
+      <Breadcrumbs route={query()?.data?.route} />
+      <Suspense fallback={<p>Loading..</p>}>
+        <Dynamic
+          component={pages[query()?.data?.route?.object?.__typename!]}
+          object={query()?.data?.route?.object as any}
+        />
+      </Suspense>
+    </>
   );
 }

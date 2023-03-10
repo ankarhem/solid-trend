@@ -34,9 +34,10 @@ export default function Root() {
         ></Link>
       </Head>
       <Body>
-        <Suspense>
+        <Suspense fallback={<p>Loading app...</p>}>
           <ErrorBoundary
             fallback={(e, reset) => <ServerErrorMessage {...e} reset={reset} />}
+            // fallback={(e, reset) => <p>Error</p>}
           >
             <Routes>
               <FileRoutes />

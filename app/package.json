@@ -34,7 +34,8 @@
     "solid-js": "^1.6.11",
     "solid-start": "^0.2.21",
     "solidjs-use": "^1.2.0",
-    "undici": "^5.15.1"
+    "undici": "^5.15.1",
+    "zod": "^3.20.6"
   },
   "engines": {
     "node": ">=16"

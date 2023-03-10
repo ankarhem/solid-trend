@@ -32,7 +32,7 @@ export default function ShopLayout() {
   return (
     <>
       <Header navTree={data} />
-      <main class="min-h-[80vh]">
+      <main class="min-h-[80vh] bg-base-100">
         <Outlet />
       </main>
       <Footer />

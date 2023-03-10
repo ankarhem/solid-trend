@@ -25,18 +25,6 @@ const filters = {
   ListFilter,
   NumericRangeFilter,
   MultiListFilter,
-  // BooleanFilter: lazy(
-  //   () => import('~/components/CategoryPage/Filters/BooleanFilter')
-  // ),
-  // ListFilter: lazy(
-  //   () => import('~/components/CategoryPage/Filters/ListFilter')
-  // ),
-  // NumericRangeFilter: lazy(
-  //   () => import('~/components/CategoryPage/Filters/NumericRangeFilter')
-  // ),
-  // MultiListFilter: lazy(
-  //   () => import('~/components/CategoryPage/Filters/MultiListFilter')
-  // ),
 };
 
 function Filters(props: FiltersProps) {
